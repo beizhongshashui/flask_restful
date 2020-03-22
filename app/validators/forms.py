@@ -15,7 +15,8 @@ class ClientForm(Form):
         try:
             client = ClientEnums(value.data)
         except ValueError as e:
-            print('e = ',e)
+            # print('e = ',e)
+            raise e
         # print('client == ',client)
         self.type.data = client
 
