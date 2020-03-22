@@ -1,7 +1,8 @@
-from  wtforms import Form,StringField,IntegerField
+from  wtforms import StringField,IntegerField
 from wtforms.validators import DataRequired, length, Email, Regexp,ValidationError
 from app.model.user import User
 from app.libs.enums import ClientEnums
+from app.validators.base import BaseForm as Form
 
 
 class ClientForm(Form):

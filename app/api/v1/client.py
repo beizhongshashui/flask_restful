@@ -3,7 +3,7 @@ from app.libs.redprint import Redprint
 from flask import request
 from app.validators.forms import ClientForm, UserClientForm
 from app.model.user import User
-from app.libs.error_code import ClientException
+from app.libs.error_code import ClientException,ParameterException
 
 api = Redprint('client')
 
@@ -17,15 +17,14 @@ def create_client():
     #客户端提交数据的方式是多样的，有xml json 表单
     data = request.json
     form = ClientForm(data=data)
-    if form.validate():
+    form.validate_for_api()
 
-        promise = {
-            ClientEnums.USER_EMAIL : register_by_email
-        }
-        print(form.type.data)
-        promise[form.type.data]()
-    else :
-        return ClientException()
+    promise = {
+        ClientEnums.USER_EMAIL : register_by_email
+    }
+    print(form.type.data)
+    promise[form.type.data]()
+
     return 'success.'
 
 def register_by_email():
