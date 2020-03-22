@@ -15,9 +15,7 @@ def clientlist():
 @api.route('/register',methods=['POST'])
 def create_client():
     #客户端提交数据的方式是多样的，有xml json 表单
-    data = request.json
-    form = ClientForm(data=data)
-    form.validate_for_api()
+    form = ClientForm().validate_for_api()
 
     promise = {
         ClientEnums.USER_EMAIL : register_by_email
@@ -29,8 +27,7 @@ def create_client():
 
 def register_by_email():
 
-    data = request.json
-    print('data ', data)
-    form = UserClientForm(data=data)
-    if form.validate():
-        User.register_by_email(form.nickname.data,form.account.data,form.secret.data)
+
+    form = UserClientForm().validate_for_api()
+    print('form = ',form)
+    User.register_by_email(form.nickname.data,form.account.data,form.secret.data)

@@ -1,5 +1,7 @@
 from  wtforms import StringField,IntegerField
 from wtforms.validators import DataRequired, length, Email, Regexp,ValidationError
+
+from app.libs.error_code import ParameterException
 from app.model.user import User
 from app.libs.enums import ClientEnums
 from app.validators.base import BaseForm as Form
@@ -33,4 +35,4 @@ class UserClientForm(Form):
     def validate_account(self,value):
 
         if User.query.filter_by(email=value.data).first():
-           raise ValidationError()
+           raise ParameterException()
