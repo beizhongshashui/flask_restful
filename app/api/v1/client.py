@@ -3,7 +3,7 @@ from app.libs.redprint import Redprint
 from flask import request
 from app.validators.forms import ClientForm, UserClientForm
 from app.model.user import User
-from app.libs.error_code import ClientException,ParameterException
+from app.libs.error_code import Success
 
 api = Redprint('client')
 
@@ -23,10 +23,9 @@ def create_client():
     print(form.type.data)
     promise[form.type.data]()
 
-    return 'success.'
+    return Success()
 
 def register_by_email():
-
 
     form = UserClientForm().validate_for_api()
     print('form = ',form)
